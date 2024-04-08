@@ -11,9 +11,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/orders-slow", async (CancellationToken cancellationToken) =>
+app.MapGet("/orders-slow", (CancellationToken cancellationToken) =>
 {
-    return await OrderService.GetOrdersSlowAsync();
+    return OrderService.GetOrdersSlowAsync();
 })
 .WithOpenApi();
 
@@ -29,7 +29,7 @@ app.Run();
 
 internal sealed class OrderService
 {
-    public static async Task<IEnumerable<Order>> GetOrdersSlowAsync()
+    public static IEnumerable<Order> GetOrdersSlowAsync()
     {
         var orders = new List<Order>();
 
@@ -38,14 +38,14 @@ internal sealed class OrderService
             orders.Add(new Order(count, $"{count}"));
         }
 
-        return await Task.FromResult(orders);
+        return orders;
     }
 
-    public static async IAsyncEnumerable<Order> GetOrdersFastAsync()
+    public static IEnumerable<Order> GetOrdersFastAsync()
     {
         for (int count = 0; count < 100; count++)
         {
-            yield return await Task.FromResult(new Order(count, $"{count}"));
+            yield return new Order(count, $"{count}");
         }
     }
 }
