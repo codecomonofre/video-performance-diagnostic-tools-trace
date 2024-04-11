@@ -8,8 +8,10 @@ export let options = {
 };
 
 export default function () {
-//   let response = http.get('https://localhost:7285/orders-fast', {
-let response = http.get('https://localhost:7285/orders-slow', {
+  // let response = http.get('http://localhost:5000/orders-slow', {
+  let response = http.get('http://localhost:5000/orders-fast', {
+    // let response = http.get('https://localhost:7285/orders-fast', {
+// let response = http.get('https://localhost:7285/orders-slow', {
     headers: {
       'accept': 'application/json',
     },
